@@ -89,21 +89,14 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item text-center mx-2 mx-lg-1 dropdown">
-                            <a id="mesDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <li class="nav-item text-center mx-2 mx-lg-1">
+                            <a id="mesDropdown" class="nav-link" href="{{route('konsultasi')}}" role="button">
                                 <div>
                                     <i class="fa fa-envelope fa-lg mb-1">
                                     </i>
-                                    <span class="badge rounded-pill badge-notification badge-danger">9</span>
                                 </div>
                                 {{ __("Pesan") }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="mesDropdown">
-                                <a class="dropdown-item">
-                                    {{ __("Pesan 1") }}
-                                </a>
-                            </div>
                         </li>
                         <li class="nav-item text-center dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -140,12 +133,12 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="card bg-light mb-3">
-                        @if(Request::route()->getName()=="farmer.profilepage")
+                        @if(Request::route()->getName()=="farmer.profilepage"||Request::route()->getName()=="farmer.profileuser")
                         <div class="list-group list-group-flush text-center">
                             <a href="{{ route('farmer.feedf') }}"
                                 class="list-group-item list-group-item-action  {{ Request::route()->getName() == 'farmer.feedf' ? 'active' : ''}}">Berita</a>
-                            <a href="{{ route('farmer.konsultasif') }}"
-                                class="list-group-item list-group-item-action {{ Request::route()->getName() == 'farmer.konsultasif' ? 'active' : ''}}">Konsultasi</a>
+                            <a href="{{ route('konsultasi') }}"
+                                class="list-group-item list-group-item-action">Konsultasi</a>
                             <a href="{{ route('farmer.komunitasf') }}"
                                 class="list-group-item list-group-item-action {{ Request::route()->getName() == 'farmer.komunitasf' ? 'active' : ''}}">Komunitas</a>
                         </div>
@@ -167,18 +160,20 @@
                                 &#64;{{Auth::user()->username}}
                             </h6>
                         </div>
+
                         <div class="list-group list-group-flush text-center">
                             <a href="{{ route('farmer.feedf') }}"
                                 class="list-group-item list-group-item-action  {{ Request::route()->getName() == 'farmer.feedf' ? 'active' : ''}}">Berita</a>
-                            <a href="{{ route('farmer.konsultasif') }}"
-                                class="list-group-item list-group-item-action {{ Request::route()->getName() == 'farmer.konsultasif' ? 'active' : ''}}">Konsultasi</a>
-                            <a href="{{ route('farmer.komunitasf') }}"
+                            <a href="{{ route('konsultasi') }}"
+                                class="list-group-item list-group-item-action">Konsultasi</a>
+                            <a href=" {{ route('farmer.komunitasf') }}"
                                 class="list-group-item list-group-item-action {{ Request::route()->getName() == 'farmer.komunitasf' ? 'active' : ''}}">Komunitas</a>
                         </div>
                         @endif
                     </div>
                 </div>
-                @if(Request::route()->getName()== "farmer.readf")
+                @if(Request::route()->getName()== "farmer.readf"||
+                Request::route()->getName()== "farmer.alluser")
                 <main class="col-lg-9">@yield('content')</main>
                 @else
 

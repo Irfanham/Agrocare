@@ -17,8 +17,8 @@ class CreateStatusesTable extends Migration
             $table->id();
             $table->integer('user_id');
             $table->longText('content');
-            $table->string('image')->nullable()->change();
-            $table->string('file')->nullable()->change();
+            $table->string('image')->nullable();
+            $table->string('file')->nullable();
             $table->softDeletes();
             $table->timestamps();
         });

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Status;
+use Auth;
 use Illuminate\Http\Request;
 
 class StatusController extends Controller
@@ -35,26 +36,38 @@ class StatusController extends Controller
      */
     public function store(Request $request)
     {
+    //    dd($request->all());
         //
-        $request->validate([
+        $validator = \Validator::make($request->all(),[
             'user_id'=>'required',
             'content'=>'required',
+            'image'=>'sometimes|image'
         ]);
-        $status = Status::create([
-            'user_id' => $request->input('user_id'),
-            'content' => $request->input('content'),
+        if ($validator->fails()) return response()->json([
+            'status'=>400,
+            'error'=>$validator->errors()->first()
         ]);
-        
-        
+
+        if (!$request->image && !$request->content)return response()->json([
+            'status'=>400,
+            'error'=>'Must Select Image Or Write Text First'
+        ]);
+        $inputs = $request->all();
+        if ($request->image){
+            $inputs['image'] = \Storage::putFile('public/img',$request->image);
+            $inputs['image'] = str_replace('public/','',$inputs['image']);
+        }
+
+        $post = auth()->user()->statuses()->create($inputs);
         $date = Status::latest()->first();
         $dates= $date->created_at->diffForHumans();
-        
+        $user = Auth::user();
         return response()->json([
             'success'=>true,
             'message'=>'status berhasil disimpan',
-            'data'=>$status,
-            'date'=>$dates
-            
+            'data'=>$post,
+            'date'=>$dates,
+            'user'=>$user
         ]);
     }
 
@@ -96,19 +109,38 @@ class StatusController extends Controller
     public function update(Request $request, Status $status)
     {
         //
-        $id=$request->id;
-        $request->validate([
+        $validator = \Validator::make($request->all(),[
             'user_id'=>'required',
             'content'=>'required',
+            'image'=>'sometimes|image'
         ]);
-        $status = Status::where('id',$id)->update([
-            'user_id' => $request->input('user_id'),
-            'content' => $request->input('content'),
+        if ($validator->fails()) return response()->json([
+            'status'=>400,
+            'error'=>$validator->errors()->first()
         ]);
+
+        if (!$request->image && !$request->content)return response()->json([
+            'status'=>400,
+            'error'=>'Must Select Image Or Write Text First'
+        ]);
+
+        $inputs = $request->all();
+        if ($request->image){
+            $inputs['image'] = \Storage::putFile('public/img',$request->image);
+            $inputs['image'] = str_replace('public/','',$inputs['image']);
+        }
+
+
+        $date = Status::latest()->first();
+        $dates= $date->created_at->diffForHumans();
+        $user = Auth::user();
+        $post = auth()->user()->statuses()->update($inputs);
         return response()->json([
             'success'=>true,
-            'message'=>'Status berhasil diupdate',
-            'data'=>$status
+            'message'=>'status berhasil diupdate',
+            'data'=>$post,
+            'date'=>$dates,
+            'user'=>$user
         ]);
     }
 

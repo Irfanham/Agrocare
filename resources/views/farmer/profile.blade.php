@@ -136,6 +136,7 @@
 
             <h3 class="card-text">Pengguna Aktif</h3>
             <h2 class="card-text">100</h2>
+            <a href="{{route('farmer.alluser')}}" class="btn btn-primary btn-md">Lihat</a>
         </div>
     </div>
 </div>

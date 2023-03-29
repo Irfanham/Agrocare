@@ -1,100 +1,100 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <title>Agrocare</title>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-        <!-- Fonts -->
-        <link
-            href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap"
-            rel="stylesheet"
-        />
+    <title>Agrocare</title>
 
-        <!-- Styles -->
-        <style>
-            html,
-            body {
-                background-color: #fff;
-                color: #636b6f;
-                font-family: "Nunito", sans-serif;
-                font-weight: 200;
-                height: 100vh;
-                margin: 0;
-            }
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;600&display=swap" rel="stylesheet" />
 
-            .full-height {
-                height: 100vh;
-            }
+    <!-- Styles -->
+    <style>
+        html,
+        body {
+            background-color: #fff;
+            color: #636b6f;
+            font-family: "Nunito", sans-serif;
+            font-weight: 200;
+            height: 100vh;
+            margin: 0;
+        }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
+        .full-height {
+            height: 100vh;
+        }
 
-            .position-ref {
-                position: relative;
-            }
+        .flex-center {
+            align-items: center;
+            display: flex;
+            justify-content: center;
+        }
 
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
+        .position-ref {
+            position: relative;
+        }
 
-            .content {
-                text-align: center;
-            }
+        .top-right {
+            position: absolute;
+            right: 10px;
+            top: 18px;
+        }
 
-            .title {
-                font-size: 84px;
-            }
+        .content {
+            text-align: center;
+        }
 
-            .links > a {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: 0.1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
+        .title {
+            font-size: 84px;
+        }
 
-            .m-b-md {
-                margin-bottom: 30px;
-            }
-        </style>
-    </head>
-    <body>
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-            <div class="top-right links">
-                @auth @if(Auth::user()->role_id==1)
-                <a href="{{ url('/dashboard') }}">Home</a>
-                @endif @if(Auth::user()->role_id==2)
-                <a href="{{ url('/post') }}">Home</a>
-                @endif @if(Auth::user()->role_id==3)
-                <a href="{{ url('/post') }}">Home</a>
-                @endif @else
-                <a href="{{ route('login') }}">Login</a>
+        .links>a {
+            color: #636b6f;
+            padding: 0 25px;
+            font-size: 13px;
+            font-weight: 600;
+            letter-spacing: 0.1rem;
+            text-decoration: none;
+            text-transform: uppercase;
+        }
 
-                @if (Route::has('register'))
-                <a href="{{ route('register') }}">Register</a>
-                @endif @endauth
-            </div>
-            @endif
+        .m-b-md {
+            margin-bottom: 30px;
+        }
+    </style>
+</head>
 
-            <div class="content">
-                <div class="col-md-7">
-                    <img src="{{ asset('img/logo-agro.png') }}" class="w-50" />
-                    <h3>
-                        Berbagi informasi, konten edukasi, dan konsultasi dengan
-                        tenaga ahli.
-                    </h3>
-                </div>
+<body>
+    <div class="flex-center position-ref full-height">
+        @if (Route::has('login'))
+        <div class="top-right links">
+            @auth @if(Auth::user()->role_id==1)
+            <a href="{{ url('/dashboard') }}">Home</a>
+            @endif @if(Auth::user()->role_id==2)
+            <a href="{{ url('/feede') }}">Home</a>
+            @endif @if(Auth::user()->role_id==3)
+            <a href="{{ url('/feedf') }}">Home</a>
+            @endif @else
+            <a href="{{ route('login') }}">Login</a>
+
+            @if (Route::has('register'))
+            <a href="{{ route('register') }}">Register</a>
+            @endif @endauth
+        </div>
+        @endif
+
+        <div class="content">
+            <div class="col-md-7">
+                <img src="{{ asset('img/logo-agro.png') }}" class="w-50" />
+                <h3>
+                    Berbagi informasi, konten edukasi, dan konsultasi dengan
+                    tenaga ahli.
+                </h3>
             </div>
         </div>
-    </body>
+    </div>
+</body>
+
 </html>

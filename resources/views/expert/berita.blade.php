@@ -101,7 +101,8 @@
     <div class="card-body">
         <div class="list-group list-group-flush">
             @foreach($news as $value)
-            <a href="#" class="list-group-item nav-link text-justify" style="color:rgba(0, 0, 0, 0.5);">{{
+            <a href="{{url('reade'.'/'.$value->id)}}" class="list-group-item nav-link text-justify"
+                style="color:rgba(0, 0, 0, 0.5);">{{
                 $value->title}}
                 <span style="
                 position: absolute;

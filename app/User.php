@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Contracts\Auth\MustVerifyEmail;
+// use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -45,4 +46,32 @@ class User extends Authenticatable
     public function statuses(){
         return $this->hasMany(Status::class);
     }
+
+    public function followers(){
+        
+            return $this->belongsToMany(self::class, 'friends', 'follow_id', 'user_id')->withTimestamps();
+    }
+
+    public function follows(){
+        
+        return $this->belongsToMany(self::class, 'friends', 'user_id', 'follow_id')->withTimestamps();
+
+    }
+
+    public function follow($userId){
+        $this->follows()->attach($userId);
+        return $this;
+        
+    }
+    public function unfollow($userId){
+        $this->follows()->dettach($userId);
+        return $this;
+    }
+    public function isFollowing($userId){
+        return (boolean) $this->follows()->where('follow_id',$userId)->first(['friends.id']);
+
+    }
+
+
+
 }

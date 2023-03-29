@@ -11,15 +11,6 @@
                 <small class="text-muted">{{ $data->created_at->diffForHumans() }}</small>
             </p>
             <div class="form-group">
-                <a href="javascript:void(0)" id="btn_edit_post" data-toggle="modal" data-target="#editModalPost"
-                    data-id="{{ $data->id }}" data-toggle="tooltip" title="Edit Artikel" class="mr-1">
-                    <i class="fa fa-edit fa-lg"></i>
-                </a>
-                <a href="javascript:void(0)" id="btn_delete_post" class="mr-1" data-toggle="tooltip"
-                    title="Hapus Artikel" data-id="{{$data->id}}">
-                    <i class="fa fa-trash fa-lg"></i>
-                </a>
-
                 <a href="{{route('farmer.readf',$data->id)}}" class="btn btn-primary float-right">
                     Baca
                 </a>
@@ -37,7 +28,8 @@
     <div class="card-body">
         <div class="list-group list-group-flush">
             @foreach($news as $value)
-            <a href="#" class="list-group-item nav-link text-justify" style="color:rgba(0, 0, 0, 0.5);">{{
+            <a href="{{url('readf'.'/'.$value->id)}}" class="list-group-item nav-link text-justify"
+                style="color:rgba(0, 0, 0, 0.5);">{{
                 $value->title}}
                 <span style="
                 position: absolute;
@@ -55,7 +47,8 @@
     <div class="card-body">
         <div class="list-group list-group-flush">
             @foreach($consult as $ta)
-            <a href="#" class="list-group-item nav-link" style="color:rgba(0, 0, 0, 0.5);">{{$ta->name}}
+            <a href="{{url('konsultasi'.'/'.$ta->id)}}" class="list-group-item nav-link"
+                style="color:rgba(0, 0, 0, 0.5);">{{$ta->name}}
                 <span style="
                 position: absolute;
                 left: 0px;

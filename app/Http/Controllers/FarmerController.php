@@ -19,7 +19,44 @@ class FarmerController extends Controller
         return view("farmer.feedf");
     }
 
+    //get all user that can be follow
+    public function allUser(User $user){
 
+        $alluser = User::where('role_id',3)->get();
+
+        return view('farmer.alluser',compact('alluser'));
+
+    }
+    //follow and unfollow
+
+    public function follow(Request $request){
+        $user=User::find($request->id);
+        $follower = Auth::user();
+        if ($follower->id == $user->id) {
+            return back()->withError("Tidak bisa tambah diri sendiri");
+        }
+        if(!$follower->isFollowing($user->id)) {
+            $follower->follow($user->id);
+
+            // sending a notification
+            // $user->notify(new UserFollowed($follower));
+
+            return back()->withSuccess("Kamu sekarang berteman dengan {$user->name}");
+        }
+        return back()->withError("Kamu sudah berteman dengan {$user->name}");
+    }
+    
+    public function unfollow(Request $request){
+        $user=User::find($request->id);
+        $follower = User::user();
+        if($follower->isFollowing($user->id)) {
+            $follower->unfollow($user->id);
+            return back()->withSuccess("Kamu tidak lagi berteman dengan {$user->name}");
+        }
+        return back()->withError("Kamu tidak berteman dengan {$user->name}");
+
+    }
+    //
     public function profilePage(User $user){
         $user = Auth::user();
         $status = Status::with('users')->latest()->get();
@@ -32,8 +69,20 @@ class FarmerController extends Controller
         // return $user;
         return view("farmer.profile", compact('user','status','friend','consult'));
     }
+    public function profileUser(User $user,$id){
+        $user = User::where('id',$id)->get();
+        $status = Status::with('users')->where('user_id',$id)->latest()->get();
+        foreach($status as $c){
+            $c->content= Str::limit($c->content, 150);
+            
+        }
+        $friend = Comunity::with('users')->where('user_id',$id)->latest()->take(5)->get();
+        $consult =User::where('role_id',2)->get();
+        // return $user;
+        return view("farmer.profileuser", compact('user','status','friend','consult'));
+    }
 
-
+    ///
     public function profile(User $user){
         $user = Auth::user();
         // return $user;

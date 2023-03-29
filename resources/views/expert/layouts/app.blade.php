@@ -89,21 +89,14 @@
                                 </a>
                             </div>
                         </li>
-                        <li class="nav-item text-center mx-2 mx-lg-1 dropdown">
-                            <a id="mesDropdown" class="nav-link dropdown-toggle" href="#" role="button"
-                                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <li class="nav-item text-center mx-2 mx-lg-1">
+                            <a id="mesDropdown" class="nav-link" href="{{route('konsultasi')}}" role="button">
                                 <div>
                                     <i class="fa fa-envelope fa-lg mb-1">
                                     </i>
-                                    <span class="badge rounded-pill badge-notification badge-danger">9</span>
                                 </div>
                                 {{ __("Pesan") }}
                             </a>
-                            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="mesDropdown">
-                                <a class="dropdown-item">
-                                    {{ __("Pesan 1") }}
-                                </a>
-                            </div>
                         </li>
                         <li class="nav-item text-center dropdown">
                             <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button"
@@ -161,8 +154,8 @@
 
                             <a href="{{ route('expert.feede') }}"
                                 class="list-group-item list-group-item-action  {{ Request::route()->getName() == 'expert.feede' ? 'active' : ''}}">Berita</a>
-                            <a href="{{ route('expert.konsultasie') }}"
-                                class="list-group-item list-group-item-action {{ Request::route()->getName() == 'expert.konsultasie' ? 'active' : ''}}">Konsultasi</a>
+                            <a href="{{ route('konsultasi') }}"
+                                class="list-group-item list-group-item-action ">Konsultasi</a>
 
                         </div>
                     </div>

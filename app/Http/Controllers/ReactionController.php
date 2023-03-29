@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
+use DB;
 use App\Reaction;
 use Illuminate\Http\Request;
 
@@ -36,6 +38,13 @@ class ReactionController extends Controller
     public function store(Request $request)
     {
         //
+        $data = [
+            'user_id' => Auth::user()->id,
+            'post_id' => $request->post_id
+        ];
+
+        DB::table('reactions')->insert($data);
+        return redirect(url()->previous().'#post'.$request->post_id);
     }
 
     /**
@@ -78,8 +87,15 @@ class ReactionController extends Controller
      * @param  \App\Reaction  $reaction
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Reaction $reaction)
+    public function destroy(Reaction $reaction,$id)
     {
+
         //
+        $like = DB::table('reactions')->where('id', $id)->first();
+        $post = DB::table('posts')->where('id', $like->post_id)->first();
+
+        DB::table('reactions')->where('id', $id)->delete();
+
+        return redirect(url()->previous().'#post'.$post->id);
     }
 }

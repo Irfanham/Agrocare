@@ -170,7 +170,7 @@ sup {
 }
 
 a {
-    color: #18944d;
+    color: black;
     text-decoration: none;
     background-color: transparent;
 }
@@ -2409,7 +2409,7 @@ textarea.form-control.is-invalid {
 }
 .btn:hover {
     color: #212529;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .btn:focus,
 .btn.focus {
@@ -2967,15 +2967,15 @@ fieldset:disabled a.btn {
 .btn-link {
     font-weight: 400;
     color: #3490dc;
-    text-decoration: none;
+    text-decoration: none !important;
 }
 .btn-link:hover {
     color: #1d68a7;
-    text-decoration: underline;
+    text-decoration: none !important;
 }
 .btn-link:focus,
 .btn-link.focus {
-    text-decoration: underline;
+    text-decoration: none !important;
 }
 .btn-link:disabled,
 .btn-link.disabled {
@@ -4512,6 +4512,12 @@ input[type="button"].btn-block {
     color: #fff;
 }
 
+.post_img {
+    width: 100%;
+    max-height: 300px;
+    object-fit: cover;
+}
+
 .card {
     position: relative;
     display: flex;
@@ -4553,7 +4559,7 @@ input[type="button"].btn-block {
 }
 
 .card-title {
-    margin-bottom: 0.75rem;
+    margin-bottom: -0.25rem;
 }
 
 .card-subtitle {
@@ -9737,12 +9743,12 @@ a.text-dark:focus {
 .fa-cl {
     -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #18944d;
+    -webkit-text-stroke-color: black;
 }
 .fa-lk {
     -webkit-text-fill-color: white;
     -webkit-text-stroke-width: 1px;
-    -webkit-text-stroke-color: #18944d;
+    -webkit-text-stroke-color: black;
 }
 .fa-ac {
     -webkit-text-fill-color: red;

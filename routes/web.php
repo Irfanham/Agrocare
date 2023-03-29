@@ -43,7 +43,7 @@ Route::name('admin.')->prefix('/')->middleware("admin")->group(function() {
     Route::post('updatePost/{id}', 'PostController@update')->name('updatePost');
     Route::get('read/{id}', 'PostController@readPost')->name('read');
     Route::delete('delPost/{id}', 'PostController@destroy')->name('delPost');
-    Route::get('konsultasi', 'ConsultController@index')->name('konsultasi');
+    // Route::get('konsultasi', 'ConsultController@index')->name('konsultasi');
     Route::get('komunitas', 'ComunityController@index')->name('komunitas');
     Route::post('addStatus', 'StatusController@store')->name('addStatus');
     Route::get('showStatus/{id}', 'StatusController@show')->name('showStatus');
@@ -65,7 +65,7 @@ Route::name('expert.')->prefix('/')->middleware("expert","isUser")->group(functi
     Route::post('updateposte/{id}', 'PostController@update')->name('updateposte');
     Route::get('reade/{id}', 'PostController@readPost')->name('reade');
     Route::delete('delposte{id}', 'PostController@destroy')->name('delposte');
-    Route::get('konsultasie', 'ConsultController@indexe')->name('konsultasie');
+    // Route::get('konsultasie', 'ConsultController@indexe')->name('konsultasie');
 
 });
 
@@ -74,20 +74,26 @@ Route::name('expert.')->prefix('/')->middleware("expert","isUser")->group(functi
 
 Route::name('farmer.')->prefix('/')->middleware("farmer","isUser")->group(function() {
     Route::get('farmer', 'FarmerController@index')->name('farmer');
+    Route::get('alluser', 'FarmerController@allUser')->name('alluser');
+    Route::post('follow', 'FarmerController@follow')->name('follow');
+    Route::delete('unfollow', 'FarmerController@unfollow')->name('unfollow');
     Route::get('profilepage', 'FarmerController@profilePage')->name('profilepage');
+    Route::get('profileuser/{id}', 'FarmerController@profileUser')->name('profileuser');
     Route::get('editf','FarmerController@profile')->name('editf');
     Route::post('updateprofilef','FarmerController@updateProfile')->name('updateprofilef');
     Route::post('changecover','FarmerController@changeCover')->name('changecover');
     Route::post('changephoto','FarmerController@changePhoto')->name('changephoto');
     Route::get('feedf', 'PostController@indexf')->name('feedf');
     Route::get('readf/{id}', 'PostController@readf')->name('readf');
-    Route::get('konsultasif', 'ConsultController@indexf')->name('konsultasif');
+    // Route::get('konsultasif', 'ConsultController@indexf')->name('konsultasif');
     Route::get('komunitasf', 'ComunityController@indexf')->name('komunitasf');
     Route::post('addstatusf', 'StatusController@store')->name('addstatusf');
     Route::get('showstatusf/{id}', 'StatusController@show')->name('showstatusf');
     Route::post('updatestatusf/{id}', 'StatusController@update')->name('updatestatusf');
     // Route::get('readf/{id}', 'StatusController@readStatus')->name('readf');
     Route::delete('delstatusf/{id}', 'StatusController@destroy')->name('delstatusf');
+    Route::resource('like', ReactionController::class);
+    Route::resource('comment', CommentController::class);
 
 
 });

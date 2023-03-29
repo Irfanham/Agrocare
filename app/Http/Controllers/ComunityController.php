@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Auth;
 use App\Comunity;
+use App\Friend;
 use App\User;
 use App\Status;
 use Illuminate\Support\Str;
@@ -19,6 +21,7 @@ class ComunityController extends Controller
     {
         //
         $status = Status::with('users')->latest()->get();
+        
         foreach($status as $c){
             $c->content= Str::limit($c->content, 150);
             
@@ -33,12 +36,15 @@ class ComunityController extends Controller
     public function indexf()
     {
         //
+        $id=Auth::user()->id;
         $status = Status::with('users')->latest()->get();
+        // return $status;
         foreach($status as $c){
             $c->content= Str::limit($c->content, 150);
             
         }
-        $friend = Comunity::with('users')->latest()->take(5)->get();
+        $friend = User::where('id',$id)->with('follows')->latest()->take(5)->get();
+        
         $consult =User::where('role_id',2)->get();
         // return $data;
         return view("farmer.komunitas",compact('status','friend','consult'));

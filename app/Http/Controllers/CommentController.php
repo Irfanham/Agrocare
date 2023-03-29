@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use Illuminate\Http\Request;
+use DB;
+use Auth;
 
 class CommentController extends Controller
 {
@@ -36,6 +38,20 @@ class CommentController extends Controller
     public function store(Request $request)
     {
         //
+        $validated = $request->validate([
+            'comment' => 'required'
+        ]);
+        $data = [
+            'post_id' => $request->post_id,
+            'user_id' => Auth::user()->id,
+            'comment' => $request->comment,
+            'c_date' => now('6.0').date(''),
+        ];
+
+        DB::table('comments')->insert($data);
+
+        $notify = ['message'=>'Commented', 'alert-type'=>'success'];
+        return redirect(url()->previous().'#post'.$request->post_id)->with($notify);
     }
 
     /**
@@ -78,8 +94,15 @@ class CommentController extends Controller
      * @param  \App\Comment  $comment
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Comment $comment)
+    public function destroy($id)
     {
         //
+        $comment = DB::table('comments')->where('id', $id)->first();
+        $post = DB::table('posts')->where('id', $comment->post_id)->first();
+
+        DB::table('comments')->where('id', $id)->delete();
+
+        $notify = ['message'=>'Comment deteted', 'alert-type'=>'success'];
+        return redirect(url()->previous().'#post'.$post->id)->with($notify);
     }
 }
